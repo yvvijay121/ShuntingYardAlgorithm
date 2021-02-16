@@ -14,14 +14,12 @@ public class Parser {
             } else if (t.getType().equals(TokenType.FUNCTION)) {
                 outputQuene.add(t);
             } else if (t.getType().equals(TokenType.OPERATOR)) {
-
                 while ((operatorStack.size() > 0) && ((operatorStack.peek().getType().equals(TokenType.OPERATOR) &&
                         (operatorStack.peek().getPrecedence() > t.getPrecedence())) ||
                         ((operatorStack.peek().getPrecedence() == t.getPrecedence()) &&
                                 !operatorStack.peek().getType().equals(TokenType.BRACKET_LEFT)))) {
                     outputQuene.add(operatorStack.pop());
                 }
-
                 operatorStack.push(t);
             } else if (t.getType().equals(TokenType.BRACKET_LEFT)) {
                 operatorStack.push(t);
@@ -40,7 +38,7 @@ public class Parser {
             }
         }
 
-        for (int i = 0; i < operatorStack.size(); i++) {
+        while (operatorStack.size() > 0) {
             outputQuene.add(operatorStack.pop());
         }
 
