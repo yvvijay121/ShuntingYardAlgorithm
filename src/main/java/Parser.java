@@ -12,12 +12,12 @@ public class Parser {
             if (t.getType().equals(TokenType.NUMBER)) {
                 outputQuene.add(t);
             } else if (t.getType().equals(TokenType.FUNCTION)) {
-                outputQuene.add(t);
+                operatorStack.add(t);
             } else if (t.getType().equals(TokenType.OPERATOR)) {
                 while ((operatorStack.size() > 0) && ((operatorStack.peek().getType().equals(TokenType.OPERATOR) &&
-                        (operatorStack.peek().getPrecedence() > t.getPrecedence())) ||
-                        ((operatorStack.peek().getPrecedence() == t.getPrecedence()) &&
-                                !operatorStack.peek().getType().equals(TokenType.BRACKET_LEFT)))) {
+                        (operatorStack.peek().getPrecedence() >= t.getPrecedence() && t.getAssociativity().equals(Associativity.LEFT))) ||
+                        ((operatorStack.peek().getPrecedence() > t.getPrecedence() && t.getAssociativity().equals(Associativity.RIGHT))) &&
+                                !operatorStack.peek().getType().equals(TokenType.BRACKET_LEFT))) {
                     outputQuene.add(operatorStack.pop());
                 }
                 operatorStack.push(t);
