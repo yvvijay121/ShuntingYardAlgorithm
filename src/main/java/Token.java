@@ -13,11 +13,19 @@ public class Token {
         assoc = Associativity.N_A;
     }
 
-    public Token(String function) {
-        this.value = function;
-        type = TokenType.FUNCTION;
-        precedence = 5;
-        assoc = Associativity.RIGHT;
+    public Token(String string) {
+        if(Token.isFunction(string)) {
+            this.value = string;
+            type = TokenType.FUNCTION;
+            precedence = 5;
+            assoc = Associativity.RIGHT;
+        } else if(Token.isVariable(string)){
+            this.value = string;
+            type = TokenType.VARIABLE;
+            assoc = Associativity.N_A;
+        } else {
+            throw new IllegalArgumentException("something went wrong.");
+        }
     }
 
     public Token(char operator) {
@@ -73,6 +81,8 @@ public class Token {
     public static boolean isFunction(String string) {
         return string.equals("sin") || string.equals("cos") || string.equals("tan") || string.equals("csc") || string.equals("sec") || string.equals("cot") || string.equals("abs");
     }
+
+    public static boolean isVariable(String string){ return Character.getType(string.charAt(0)) == Character.LOWERCASE_LETTER; }
 
     public Associativity getAssociativity() { return assoc; }
 

@@ -1,3 +1,4 @@
+import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -9,7 +10,8 @@ public class Parser {
         Queue<Token> outputQuene = new LinkedList<>();
         Stack<Token> operatorStack = new Stack<>();
         for (Token t : tokenList) {
-            if (t.getType().equals(TokenType.NUMBER)) {
+            System.out.println("Value : " + t.getValue());
+            if (t.getType().equals(TokenType.NUMBER) || t.getType().equals(TokenType.VARIABLE)) {
                 outputQuene.add(t);
             } else if (t.getType().equals(TokenType.FUNCTION)) {
                 operatorStack.add(t);
@@ -43,13 +45,14 @@ public class Parser {
         }
 
         ArrayList<String> outputArray = new ArrayList<>();
+
         for (Token t : outputQuene) {
             switch (t.getType()) {
                 case NUMBER -> outputArray.add(Float.toString((float) t.getValue()));
                 case OPERATOR -> outputArray.add(Character.toString((char) t.getValue()));
                 case BRACKET_LEFT -> outputArray.add("(");
                 case BRACKET_RIGHT -> outputArray.add(")");
-                case FUNCTION -> outputArray.add((String) t.getValue());
+                case FUNCTION, VARIABLE -> outputArray.add((String) t.getValue());
             }
         }
         return outputArray.toArray();

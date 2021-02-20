@@ -17,6 +17,8 @@ public class Tokenizer {
                 tokenList.add(new Token(i.charAt(0)));
             } else if (Token.isFunction(i)) {
                 tokenList.add(new Token(i));
+            } else if (Token.isVariable(i)){
+                tokenList.add(new Token(i));
             }
         }
         return tokenList;
