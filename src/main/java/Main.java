@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -7,7 +8,9 @@ public class Main {
         System.out.print("Enter equation: ");
         String input = scanner.nextLine();  // Read user input
         System.out.println("Input is: " + input);
-        Object[] output = Parser.parse(input);
-        System.out.println("Output is: " + Arrays.toString(output));
+        ArrayList<String> output = Parser.parse(input);
+        StringBuilder outputString = new StringBuilder();
+        for(String s : output) outputString.append(s).append(" ");
+        System.out.println("Output is: " + outputString);
     }
 }

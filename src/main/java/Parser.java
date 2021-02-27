@@ -1,11 +1,10 @@
-import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
 public class Parser {
-    public static Object[] parse(String input) {
+    public static ArrayList<String> parse(String input) {
         ArrayList<Token> tokenList = Tokenizer.parse(input.replaceAll("\\s", ""));
         Queue<Token> outputQuene = new LinkedList<>();
         Stack<Token> operatorStack = new Stack<>();
@@ -44,17 +43,18 @@ public class Parser {
             outputQuene.add(operatorStack.pop());
         }
 
-        ArrayList<String> outputArray = new ArrayList<>();
+        ArrayList<String> outputArrayList = new ArrayList<>();
 
         for (Token t : outputQuene) {
             switch (t.getType()) {
-                case NUMBER -> outputArray.add(Float.toString((float) t.getValue()));
-                case OPERATOR -> outputArray.add(Character.toString((char) t.getValue()));
-                case BRACKET_LEFT -> outputArray.add("(");
-                case BRACKET_RIGHT -> outputArray.add(")");
-                case FUNCTION, VARIABLE -> outputArray.add((String) t.getValue());
+                case NUMBER -> outputArrayList.add(Float.toString((float) t.getValue()));
+                case OPERATOR -> outputArrayList.add(String.valueOf((char) t.getValue()));
+                case BRACKET_LEFT -> outputArrayList.add("(");
+                case BRACKET_RIGHT -> outputArrayList.add(")");
+                case FUNCTION, VARIABLE -> outputArrayList.add((String) t.getValue());
             }
         }
-        return outputArray.toArray();
+
+        return outputArrayList;
     }
 }

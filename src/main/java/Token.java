@@ -1,11 +1,8 @@
-import java.util.ArrayList;
-
 public class Token {
     private final Object value;
     private final TokenType type;
     private final Associativity assoc;
     private int precedence;
-
 
     public Token(float value) {
         this.value = value;
@@ -14,12 +11,12 @@ public class Token {
     }
 
     public Token(String string) {
-        if(Token.isFunction(string)) {
+        if (Token.isFunction(string)) {
             this.value = string;
             type = TokenType.FUNCTION;
             precedence = 5;
             assoc = Associativity.RIGHT;
-        } else if(Token.isVariable(string)){
+        } else if (Token.isVariable(string)) {
             this.value = string;
             type = TokenType.VARIABLE;
             assoc = Associativity.N_A;
@@ -53,6 +50,10 @@ public class Token {
                     precedence = 2;
                     assoc = Associativity.LEFT;
                 }
+                case ',' -> {
+                    precedence = 1;
+                    assoc = Associativity.LEFT;
+                }
                 default -> throw new IllegalArgumentException("that's not an operator chief: " + operator);
             }
         }
@@ -67,7 +68,7 @@ public class Token {
             return false;
         }
         try {
-            float d = Float.parseFloat(string);
+            Float.parseFloat(string);
         } catch (NumberFormatException nfe) {
             return false;
         }
@@ -82,9 +83,13 @@ public class Token {
         return string.equals("sin") || string.equals("cos") || string.equals("tan") || string.equals("csc") || string.equals("sec") || string.equals("cot") || string.equals("abs");
     }
 
-    public static boolean isVariable(String string){ return Character.getType(string.charAt(0)) == Character.LOWERCASE_LETTER; }
+    public static boolean isVariable(String string) {
+        return Character.getType(string.charAt(0)) == Character.LOWERCASE_LETTER;
+    }
 
-    public Associativity getAssociativity() { return assoc; }
+    public Associativity getAssociativity() {
+        return assoc;
+    }
 
     public int getPrecedence() {
         return precedence;
