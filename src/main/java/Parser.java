@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class Parser {
     public static ArrayList<String> parse(String input) {
-        ArrayList<Token> tokenList = Tokenizer.parse(input.replaceAll("\\s", ""));
+        ArrayList<Token> tokenList = Tokenizer.parse(input.replaceAll("\\s+", ""));
         Queue<Token> outputQuene = new LinkedList<>();
         Stack<Token> operatorStack = new Stack<>();
         for (Token t : tokenList) {

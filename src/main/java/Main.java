@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -10,7 +9,7 @@ public class Main {
         System.out.println("Input is: " + input);
         ArrayList<String> output = Parser.parse(input);
         StringBuilder outputString = new StringBuilder();
-        for(String s : output) outputString.append(s).append(" ");
+        for (String s : output) outputString.append(s).append(" ");
         System.out.println("Output is: " + outputString);
     }
 }
