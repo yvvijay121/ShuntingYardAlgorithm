@@ -1,5 +1,6 @@
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
@@ -7,9 +8,23 @@ public class Main {
         System.out.print("Enter equation: ");
         String input = scanner.nextLine();  // Read user input
         System.out.println("Input is: " + input);
-        ArrayList<String> output = Parser.parse(input);
-        StringBuilder outputString = new StringBuilder();
-        for (String s : output) outputString.append(s).append(" ");
-        System.out.println("Output is: " + outputString);
+        Token[] output = Parser.parse(input);
+        System.out.println(Arrays.toString(output));
+        Stack<Node<Token>> unassignedOutputs = new Stack<>();
+        for (Token t : output) {
+            switch (t.getType()) {
+                case NUMBER, VARIABLE -> unassignedOutputs.push(new Node<>(t));
+                case BRACKET_LEFT, BRACKET_RIGHT -> throw new NumberFormatException("shit went down");
+                case OPERATOR, FUNCTION -> {
+                    Node<Token> n = new Node<>(t);
+                    if (unassignedOutputs.size() > 1) n.addChild(unassignedOutputs.pop());
+                    if (unassignedOutputs.size() > 1) n.addChild(unassignedOutputs.pop());
+                    unassignedOutputs.push(n);
+                }
+            }
+        }
+        for (Node<Token> n : unassignedOutputs) {
+            System.out.println(n.toString());
+        }
     }
 }

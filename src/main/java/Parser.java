@@ -4,12 +4,12 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class Parser {
-    public static ArrayList<String> parse(String input) {
+    public static Token[] parse(String input) {
         ArrayList<Token> tokenList = Tokenizer.parse(input.replaceAll("\\s+", ""));
         Queue<Token> outputQuene = new LinkedList<>();
         Stack<Token> operatorStack = new Stack<>();
         for (Token t : tokenList) {
-            System.out.println("Value : " + t.getValue());
+            //System.out.println("Value : " + t.getValue());
             if (t.getType().equals(TokenType.NUMBER) || t.getType().equals(TokenType.VARIABLE)) {
                 outputQuene.add(t);
             } else if (t.getType().equals(TokenType.FUNCTION)) {
@@ -21,7 +21,7 @@ public class Parser {
                                 !operatorStack.peek().getType().equals(TokenType.BRACKET_LEFT))) {
                     outputQuene.add(operatorStack.pop());
                 }
-                operatorStack.push(t);
+                if(!t.getValue().equals(',')) operatorStack.push(t);
             } else if (t.getType().equals(TokenType.BRACKET_LEFT)) {
                 operatorStack.push(t);
             } else if (t.getType().equals(TokenType.BRACKET_RIGHT)) {
@@ -43,18 +43,9 @@ public class Parser {
             outputQuene.add(operatorStack.pop());
         }
 
-        ArrayList<String> outputArrayList = new ArrayList<>();
+        Token[] tokenOutput = new Token[outputQuene.size()];
+        outputQuene.toArray(tokenOutput);
 
-        for (Token t : outputQuene) {
-            switch (t.getType()) {
-                case NUMBER -> outputArrayList.add(Float.toString((float) t.getValue()));
-                case OPERATOR -> outputArrayList.add(String.valueOf((char) t.getValue()));
-                case BRACKET_LEFT -> outputArrayList.add("(");
-                case BRACKET_RIGHT -> outputArrayList.add(")");
-                case FUNCTION, VARIABLE -> outputArrayList.add((String) t.getValue());
-            }
-        }
-
-        return outputArrayList;
+        return tokenOutput;
     }
 }

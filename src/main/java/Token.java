@@ -1,4 +1,40 @@
 public class Token {
+    public final static Object[][] functions = {
+            {"sin", 1},
+            {"cos", 1},
+            {"tan", 1},
+            {"csc", 1},
+            {"sec", 1},
+            {"cot", 1},
+            {"asin", 1},
+            {"acos", 1},
+            {"atan", 1},
+            {"acsc", 1},
+            {"asec", 1},
+            {"acot", 1},
+            {"sinh", 1},
+            {"cosh", 1},
+            {"tanh", 1},
+            {"sech", 1},
+            {"csch", 1},
+            {"coth", 1},
+            {"sqrt", 1},
+            {"pow", 2},
+            {"sin", 1},
+            {"exp", 2},
+            {"ln", 1},
+            {"log", 2},
+            {"min", 2},
+            {"max", 2},
+            {"sum", 4},
+            {"lim", 3},
+            {"derivative", 2},
+            {"defderivative", 3},
+            {"integral", 2},
+            {"defderivative", 4},
+            {"abs", 1}
+    };
+
     private final Object value;
     private final TokenType type;
     private final Associativity assoc;
@@ -80,7 +116,7 @@ public class Token {
     }
 
     public static boolean isFunction(String string) {
-        return string.equals("sin") || string.equals("cos") || string.equals("tan") || string.equals("csc") || string.equals("sec") || string.equals("cot") || string.equals("abs");
+        return string.equals("sin") || string.equals("cos") || string.equals("pow");
     }
 
     public static boolean isVariable(String string) {
@@ -104,6 +140,7 @@ public class Token {
     }
 
     public String toString() {
-        return "Value: " + value.toString() + "\nType: " + type.toString() + "\nPrecedence: " + precedence;
+        //return "Value: " + value.toString() + "\nType: " + type.toString() + "\nPrecedence: " + precedence;
+        return "Value: " + value.toString();
     }
 }
