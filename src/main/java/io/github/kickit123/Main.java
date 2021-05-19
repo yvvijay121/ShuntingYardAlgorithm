@@ -1,12 +1,18 @@
+package io.github.kickit123;
+
+import io.github.kickit123.alg.Node;
+import io.github.kickit123.alg.Parser;
+import io.github.kickit123.alg.Token;
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);  // Create a Scanner object
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Enter equation: ");
-        String input = scanner.nextLine();  // Read user input
+        String input = scanner.nextLine();
         System.out.println("Input is: " + input);
         Token[] output = Parser.parse(input);
         System.out.println(Arrays.toString(output));

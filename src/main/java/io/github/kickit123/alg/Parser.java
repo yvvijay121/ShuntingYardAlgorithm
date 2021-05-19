@@ -1,3 +1,5 @@
+package io.github.kickit123.alg;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;

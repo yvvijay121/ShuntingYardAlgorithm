@@ -1,3 +1,5 @@
+package io.github.kickit123.alg;
+
 public class Token {
     public final static Object[][] functions = {
             {"sin", 1},
