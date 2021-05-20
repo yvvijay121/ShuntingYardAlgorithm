@@ -20,7 +20,7 @@ public class Main {
         for (Token t : output) {
             switch (t.getType()) {
                 case NUMBER, VARIABLE -> unassignedOutputs.push(new Node<>(t));
-                case BRACKET_LEFT, BRACKET_RIGHT -> throw new NumberFormatException("shit went down");
+                case BRACKET_LEFT, BRACKET_RIGHT -> throw new NumberFormatException("something went down");
                 case OPERATOR, FUNCTION -> {
                     Node<Token> n = new Node<>(t);
                     if (unassignedOutputs.size() > 1) n.addChild(unassignedOutputs.pop());
