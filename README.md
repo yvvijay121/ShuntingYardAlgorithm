@@ -3,6 +3,3 @@ This is a Java implementation of the [Shunting-yard Algorithm](https://en.wikipe
 
 ### Usage 
 Run the `Main.java` program; the program will ask the user for a simple mathematical expression in infix notation. The program will then display the input and the output of the algorithm.
-
-#### Example:
-![Alt text](https://media.discordapp.net/attachments/827178104622546987/829440423419707432/unknown.png "a title")
